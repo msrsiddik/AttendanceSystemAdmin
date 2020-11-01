@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="10dp"
+    android:paddingLeft="5dp">
+
+    <TextView
+        android:id="@+id/teacherNameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:textSize="20sp"
+        android:paddingBottom="5dp"/>
+    <TextView
+        android:id="@+id/teacherDepartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="department"
+        android:layout_below="@id/teacherNameView"/>
+
+</RelativeLayout>

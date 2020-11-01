@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".Dashboard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#00BCD4"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/teacherBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/teacher"
+                android:background="#00BCD4"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="#FFEB3B"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/studentBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/student"
+                android:background="#FFEB3B" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/student"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
