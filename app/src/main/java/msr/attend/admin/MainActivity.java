@@ -1,11 +1,14 @@
 package msr.attend.admin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import msr.attend.admin.Student.AddStudent;
 import msr.attend.admin.Student.Student;
 import msr.attend.admin.Teacher.Teacher;
 
@@ -26,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
     public void loginPage() {
         Login login = new Login();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.FragContainer, login);
-//        transaction.replace(R.id.FragContainer, new Dashboard());
+//        transaction.replace(R.id.FragContainer, login);
+        transaction.replace(R.id.FragContainer, new Dashboard());
         transaction.commit();
     }
 
@@ -44,5 +47,37 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
     @Override
     public void student() {
         fragmentManager.beginTransaction().replace(R.id.FragContainer, new Student()).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void addStudentForm() {
+        fragmentManager.beginTransaction().replace(R.id.FragContainer, new AddStudent()).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount()>0){
+            int fragments = fragmentManager.getBackStackEntryCount();
+            if (fragments == 1) {
+                fragmentManager.popBackStack();
+            } else if (fragmentManager.getBackStackEntryCount() > 1) {
+                fragmentManager.popBackStack();
+            }
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.admin_panel);
+            builder.setTitle("Tour Helper");
+            builder.setMessage("Do you want to close this app?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    MainActivity.super.onBackPressed();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+            builder.show();
+        }
     }
 }

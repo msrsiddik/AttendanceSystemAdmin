@@ -5,4 +5,6 @@ public interface FragmentInterface {
     void dashboard();
     void teacher();
     void student();
+
+    void addStudentForm();
 }

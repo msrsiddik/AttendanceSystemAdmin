@@ -1,6 +1,6 @@
 package msr.attend.admin.Model;
 
-public class AddTeacherModel {
+public class TeacherModel {
     private String id;
     private String name;
     private String phone;
@@ -9,10 +9,19 @@ public class AddTeacherModel {
     private String gender;
     private String password;
 
-    public AddTeacherModel() {
+    public TeacherModel() {
     }
 
-    public AddTeacherModel(String id, String name, String phone, String email, String department, String gender, String password) {
+    public TeacherModel(String name, String phone, String email, String department, String gender, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.department = department;
+        this.gender = gender;
+        this.password = password;
+    }
+
+    public TeacherModel(String id, String name, String phone, String email, String department, String gender, String password) {
         this.id = id;
         this.name = name;
         this.phone = phone;

@@ -4,10 +4,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="teacher">Teacher</string>
     <string name="student">Student</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <string-array name="department_name">
         <item>CSE</item>
-        <item>MSC</item>
+        <item>EETE</item>
+        <item>Civil Engineering</item>
+        <item>English</item>
+        <item>Law</item>
+        <item>Pharmacy</item>
+        <item>Sociology</item>
+        <item>Economics</item>
+        <item>Political Science</item>
     </string-array>
 
 </resources>
