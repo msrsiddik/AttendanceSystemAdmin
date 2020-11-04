@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +27,9 @@ import msr.attend.admin.R;
 public class AddStudent extends Fragment {
     private EditText studentName, studentId;
     private Spinner departSelect;
-    private Button stSubmitBtn;
+    private Button stSubmitBtn, back;
     private FragmentInterface fragmentInterface;
+    private ArrayAdapter<CharSequence> spinnerAdapter;
 
     public AddStudent() {
         // Required empty public constructor
@@ -46,10 +48,16 @@ public class AddStudent extends Fragment {
         departSelect = view.findViewById(R.id.studentDepart);
         studentId = view.findViewById(R.id.studentId);
         stSubmitBtn = view.findViewById(R.id.studentSubmitBtn);
+        back = view.findViewById(R.id.addStudentFormBack);
 
         fragmentInterface = (FragmentInterface) getActivity();
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.department_name, android.R.layout.simple_spinner_dropdown_item);
+        back.setOnClickListener(v -> {
+            getFragmentManager().popBackStack("StudentList", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentInterface.student();
+        });
+
+        spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.department_name, android.R.layout.simple_spinner_dropdown_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         departSelect.setAdapter(spinnerAdapter);
 
@@ -85,6 +93,45 @@ public class AddStudent extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Fill up all field", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        Bundle bundle = this.getArguments();
+        if (bundle!=null){
+            setUpEdittableStudent(bundle);
+        }
+    }
+
+    private void setUpEdittableStudent(Bundle bundle){
+        String id = bundle.getString("id");
+        studentName.setText(bundle.getString("name"));
+        studentId.setText(bundle.getString("studentId"));
+        stSubmitBtn.setText("Update");
+        departSelect.setSelection(spinnerAdapter.getPosition(bundle.getString("depart")));
+
+        stSubmitBtn.setOnClickListener(v -> {
+            new FirebaseDatabaseHelper().editStudent(new StudentModel(id, studentName.getText().toString(),
+                    departSelect.getSelectedItem().toString(), studentId.getText().toString()), new FireMan.StudentDataShort() {
+                @Override
+                public void studentIsLoaded(List<StudentModel> students) {
+
+                }
+
+                @Override
+                public void studentIsInserted() {
+
+                }
+
+                @Override
+                public void studentIsDeleted() {
+
+                }
+
+                @Override
+                public void studentIsEdited() {
+                    Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         });
     }
 

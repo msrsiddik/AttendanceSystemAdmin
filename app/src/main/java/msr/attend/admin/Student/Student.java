@@ -7,12 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,7 +34,7 @@ public class Student extends Fragment {
     private ListView studentViewList;
     private FloatingActionButton addStudentBtn;
     private FragmentInterface fragmentInterface;
-    private List<StudentModel> studentModelList = new ArrayList<>();
+    private List<StudentModel> studentModelList = null;
 
     public Student() {
         // Required empty public constructor
@@ -51,7 +56,7 @@ public class Student extends Fragment {
 
         fragmentInterface = (FragmentInterface) getActivity();
         addStudentBtn.setOnClickListener(v -> fragmentInterface.addStudentForm());
-
+        registerForContextMenu(studentViewList);
     }
 
     @Override
@@ -65,6 +70,7 @@ public class Student extends Fragment {
             @Override
             public void studentIsLoaded(List<StudentModel> students) {
                 if (getActivity()!=null) {
+                    studentModelList = students;
                     studentViewList.setAdapter(new StudentsAdapter(getContext(), students));
                 }
             }
@@ -84,6 +90,60 @@ public class Student extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId()==R.id.studentsView){
+            MenuInflater inflater = new MenuInflater(getContext());
+            inflater.inflate(R.menu.menu_list, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        CharSequence title = item.getTitle();
+        AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        if ("Edit".equals(title)) {
+            StudentModel studentModel = studentModelList.get(menuinfo.position);
+            AddStudent editStudent = new AddStudent();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", studentModel.getId());
+            bundle.putString("name", studentModel.getName());
+            bundle.putString("depart", studentModel.getDepartment());
+            bundle.putString("studentId", studentModel.getStudentId());
+            editStudent.setArguments(bundle);
+            getFragmentManager().beginTransaction().replace(R.id.FragContainer, editStudent).addToBackStack(null).commit();
+
+        } else if ("Delete".equals(title)) {
+            new FirebaseDatabaseHelper().deleteStudent(studentModelList.get(menuinfo.position).getId(),
+                    new FireMan.StudentDataShort() {
+                        @Override
+                        public void studentIsLoaded(List<StudentModel> students) {
+
+                        }
+
+                        @Override
+                        public void studentIsInserted() {
+
+                        }
+
+                        @Override
+                        public void studentIsDeleted() {
+                            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void studentIsEdited() {
+
+                        }
+                    });
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     class StudentsAdapter extends ArrayAdapter<StudentModel>{

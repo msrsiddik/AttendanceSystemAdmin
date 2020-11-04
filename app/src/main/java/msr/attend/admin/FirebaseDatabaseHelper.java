@@ -26,6 +26,18 @@ public class FirebaseDatabaseHelper {
         studentRef = database.getReference().child("Students");
     }
 
+    public void editStudent(StudentModel model, final FireMan.StudentDataShort dataShort){
+        studentRef.child(model.getId()).setValue(model)
+                .addOnSuccessListener(aVoid -> {
+                    dataShort.studentIsEdited();
+                });
+    }
+
+    public void deleteStudent(String id, final FireMan.StudentDataShort dataShort){
+        studentRef.child(id).setValue(null)
+                .addOnSuccessListener(aVoid -> dataShort.studentIsDeleted());
+    }
+
     public void getStudents(FireMan.StudentDataShort dataShort){
         List<StudentModel> list = new ArrayList<>();
         studentRef.addValueEventListener(new ValueEventListener() {

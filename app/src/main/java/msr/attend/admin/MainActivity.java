@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
     public void loginPage() {
         Login login = new Login();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.FragContainer, login);
-        transaction.replace(R.id.FragContainer, new Dashboard());
+        transaction.replace(R.id.FragContainer, login);
+//        transaction.replace(R.id.FragContainer, new Dashboard());
         transaction.commit();
     }
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
 
     @Override
     public void student() {
-        fragmentManager.beginTransaction().replace(R.id.FragContainer, new Student()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.FragContainer, new Student()).addToBackStack("StudentList").commit();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setIcon(R.drawable.admin_panel);
-            builder.setTitle("Tour Helper");
+            builder.setTitle("Admin App");
             builder.setMessage("Do you want to close this app?");
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

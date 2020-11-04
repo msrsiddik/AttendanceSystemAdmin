@@ -7,6 +7,13 @@
     android:layout_margin="10dp"
     tools:context=".Student.AddStudent">
 
+    <Button
+        android:id="@+id/addStudentFormBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_marginBottom="100dp"/>
+
     <EditText
         android:id="@+id/studentName"
         android:layout_width="match_parent"
