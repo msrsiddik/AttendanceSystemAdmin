@@ -25,7 +25,7 @@ import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.R;
 
 public class AddStudent extends Fragment {
-    private EditText studentName, studentId;
+    private EditText studentName, studentId, studentBatch;
     private Spinner departSelect;
     private Button stSubmitBtn, back;
     private FragmentInterface fragmentInterface;
@@ -47,6 +47,7 @@ public class AddStudent extends Fragment {
         studentName = view.findViewById(R.id.studentName);
         departSelect = view.findViewById(R.id.studentDepart);
         studentId = view.findViewById(R.id.studentId);
+        studentBatch = view.findViewById(R.id.studentBatch);
         stSubmitBtn = view.findViewById(R.id.studentSubmitBtn);
         back = view.findViewById(R.id.addStudentFormBack);
 
@@ -64,9 +65,10 @@ public class AddStudent extends Fragment {
         stSubmitBtn.setOnClickListener(v -> {
             String name = studentName.getText().toString();
             String depart = departSelect.getSelectedItem().toString();
+            String stBatch = studentBatch.getText().toString();
             String stId = studentId.getText().toString();
-            if (!name.equals("") && !depart.equals("") && !stId.equals("")) {
-                StudentModel studentModel = new StudentModel(name, depart, stId);
+            if (!name.equals("") && !depart.equals("") && !stId.equals("") && !studentBatch.equals("")) {
+                StudentModel studentModel = new StudentModel(name, depart, stId, stBatch);
                 new FirebaseDatabaseHelper().insertStudent(studentModel, new FireMan.StudentDataShort() {
                     @Override
                     public void studentIsLoaded(List<StudentModel> students) {
@@ -107,10 +109,12 @@ public class AddStudent extends Fragment {
         studentId.setText(bundle.getString("studentId"));
         stSubmitBtn.setText("Update");
         departSelect.setSelection(spinnerAdapter.getPosition(bundle.getString("depart")));
+        studentBatch.setText(bundle.getString("batch"));
 
         stSubmitBtn.setOnClickListener(v -> {
             new FirebaseDatabaseHelper().editStudent(new StudentModel(id, studentName.getText().toString(),
-                    departSelect.getSelectedItem().toString(), studentId.getText().toString()), new FireMan.StudentDataShort() {
+                    departSelect.getSelectedItem().toString(), studentId.getText().toString(), studentBatch.getText().toString()),
+                    new FireMan.StudentDataShort() {
                 @Override
                 public void studentIsLoaded(List<StudentModel> students) {
 

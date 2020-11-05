@@ -113,6 +113,7 @@ public class Student extends Fragment {
             bundle.putString("name", studentModel.getName());
             bundle.putString("depart", studentModel.getDepartment());
             bundle.putString("studentId", studentModel.getStudentId());
+            bundle.putString("batch", studentModel.getBatch());
             editStudent.setArguments(bundle);
             getFragmentManager().beginTransaction().replace(R.id.FragContainer, editStudent).addToBackStack(null).commit();
 

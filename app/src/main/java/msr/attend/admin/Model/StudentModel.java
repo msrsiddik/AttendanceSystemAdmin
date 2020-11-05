@@ -5,21 +5,24 @@ public class StudentModel {
     private String name;
     private String department;
     private String studentId;
+    private String batch;
 
     public StudentModel() {
     }
 
-    public StudentModel(String name, String department, String studentId) {
-        this.name = name;
-        this.department = department;
-        this.studentId = studentId;
-    }
-
-    public StudentModel(String id, String name, String department, String studentId) {
+    public StudentModel(String id, String name, String department, String studentId, String batch) {
         this.id = id;
         this.name = name;
         this.department = department;
         this.studentId = studentId;
+        this.batch = batch;
+    }
+
+    public StudentModel(String name, String department, String studentId, String batch) {
+        this.name = name;
+        this.department = department;
+        this.studentId = studentId;
+        this.batch = batch;
     }
 
     public String getId() {
@@ -52,5 +55,13 @@ public class StudentModel {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 }

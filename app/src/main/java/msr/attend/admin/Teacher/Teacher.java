@@ -36,6 +36,7 @@ import msr.attend.admin.FirebaseDatabaseHelper;
 import msr.attend.admin.FragmentInterface;
 import msr.attend.admin.Model.TeacherModel;
 import msr.attend.admin.R;
+import msr.attend.admin.gson.Utils;
 
 public class Teacher extends Fragment {
     private ListView listView;
@@ -78,6 +79,15 @@ public class Teacher extends Fragment {
                 if (getActivity()!=null) {
                     MyAdapter adapter = new MyAdapter(getContext(), teachers);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener((parent, view, position, id) -> {
+                        Bundle bundle = new Bundle();
+                        TeacherModel teacher = teacherList.get(position);
+                        String tString = Utils.getGsonParser().toJson(teacher);
+                        bundle.putString("teacher", tString);
+                        TeacherProfile teacherProfile = new TeacherProfile();
+                        teacherProfile.setArguments(bundle);
+                        getFragmentManager().beginTransaction().replace(R.id.FragContainer, teacherProfile).addToBackStack(null).commit();
+                    });
                 }
             }
 
@@ -101,6 +111,7 @@ public class Teacher extends Fragment {
             inflater.inflate(R.menu.menu_list, menu);
         }
     }
+
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {

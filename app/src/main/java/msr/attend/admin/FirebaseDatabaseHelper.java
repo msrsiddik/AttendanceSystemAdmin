@@ -6,11 +6,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import msr.attend.admin.Model.CoordinatorModel;
 import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.Model.TeacherModel;
 
@@ -18,12 +21,35 @@ public class FirebaseDatabaseHelper {
     private FirebaseDatabase database;
     private DatabaseReference teacherRef;
     private DatabaseReference studentRef;
+    private DatabaseReference coordinatorRef;
     private List<TeacherModel> teachers = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
         database = FirebaseDatabase.getInstance();
         teacherRef = database.getReference().child("Teachers");
         studentRef = database.getReference().child("Students");
+        coordinatorRef = database.getReference().child("Coordinators");
+    }
+
+    public void getCourseCoordinator(String id,FireMan.CoordinatorListener listener){
+        coordinatorRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    CoordinatorModel model = snapshot.getValue(CoordinatorModel.class);
+                    listener.coordinatorIsLoad(model);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void addCourseCoordinator(CoordinatorModel model){
+        coordinatorRef.child(model.getId()).setValue(model);
     }
 
     public void editStudent(StudentModel model, final FireMan.StudentDataShort dataShort){

@@ -49,11 +49,11 @@ public class Login extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(getContext(), "SSS", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Successful Login", Toast.LENGTH_SHORT).show();
                                     fragmentInterface = (FragmentInterface) getActivity();
                                     fragmentInterface.dashboard();
                                 } else {
-                                    Toast.makeText(getContext(), "FFF", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
