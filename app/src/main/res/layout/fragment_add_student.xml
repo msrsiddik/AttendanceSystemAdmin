@@ -37,6 +37,18 @@
         android:layout_height="wrap_content"
         android:hint="Batch"/>
 
+    <EditText
+        android:id="@+id/studentPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Student Mobile Number"/>
+
+    <EditText
+        android:id="@+id/guardianPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Guardian Mobile Number"/>
+
     <Button
         android:id="@+id/studentSubmitBtn"
         android:layout_width="match_parent"

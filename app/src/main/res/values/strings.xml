@@ -6,6 +6,7 @@
     <string name="student">Student</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="routine">Routine</string>
 
     <string-array name="department_name">
         <item>CSE</item>
@@ -19,4 +20,51 @@
         <item>Political Science</item>
     </string-array>
 
+    <string-array name="first_bsc_cse">
+        <item>CSE-101</item>
+    </string-array>
+
+    <string-array name="second_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="third_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="fourth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="fifth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="sixth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="seventh_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="eighth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="ninth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="tenth_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="eleventh_bsc_cse">
+        <item></item>
+    </string-array>
+
+    <string-array name="twelfth_bsc_cse">
+        <item></item>
+    </string-array>
 </resources>

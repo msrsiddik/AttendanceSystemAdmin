@@ -25,7 +25,7 @@ import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.R;
 
 public class AddStudent extends Fragment {
-    private EditText studentName, studentId, studentBatch;
+    private EditText studentName, studentId, studentBatch, studentPhone, guardianPhone;
     private Spinner departSelect;
     private Button stSubmitBtn, back;
     private FragmentInterface fragmentInterface;
@@ -48,6 +48,8 @@ public class AddStudent extends Fragment {
         departSelect = view.findViewById(R.id.studentDepart);
         studentId = view.findViewById(R.id.studentId);
         studentBatch = view.findViewById(R.id.studentBatch);
+        studentPhone = view.findViewById(R.id.studentPhone);
+        guardianPhone = view.findViewById(R.id.guardianPhone);
         stSubmitBtn = view.findViewById(R.id.studentSubmitBtn);
         back = view.findViewById(R.id.addStudentFormBack);
 
@@ -67,8 +69,10 @@ public class AddStudent extends Fragment {
             String depart = departSelect.getSelectedItem().toString();
             String stBatch = studentBatch.getText().toString();
             String stId = studentId.getText().toString();
+            String stPhone = studentPhone.getText().toString();
+            String gdPhone = guardianPhone.getText().toString();
             if (!name.equals("") && !depart.equals("") && !stId.equals("") && !studentBatch.equals("")) {
-                StudentModel studentModel = new StudentModel(name, depart, stId, stBatch);
+                StudentModel studentModel = new StudentModel(name, depart, stId, stBatch, stPhone, gdPhone);
                 new FirebaseDatabaseHelper().insertStudent(studentModel, new FireMan.StudentDataShort() {
                     @Override
                     public void studentIsLoaded(List<StudentModel> students) {
@@ -113,7 +117,8 @@ public class AddStudent extends Fragment {
 
         stSubmitBtn.setOnClickListener(v -> {
             new FirebaseDatabaseHelper().editStudent(new StudentModel(id, studentName.getText().toString(),
-                    departSelect.getSelectedItem().toString(), studentId.getText().toString(), studentBatch.getText().toString()),
+                    departSelect.getSelectedItem().toString(), studentId.getText().toString(), studentBatch.getText().toString(),
+                    studentPhone.getText().toString(), guardianPhone.getText().toString()),
                     new FireMan.StudentDataShort() {
                 @Override
                 public void studentIsLoaded(List<StudentModel> students) {

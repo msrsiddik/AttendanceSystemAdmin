@@ -6,23 +6,29 @@ public class StudentModel {
     private String department;
     private String studentId;
     private String batch;
+    private String studentPhone;
+    private String guardianPhone;
 
     public StudentModel() {
     }
 
-    public StudentModel(String id, String name, String department, String studentId, String batch) {
+    public StudentModel(String id, String name, String department, String studentId, String batch, String studentPhone, String guardianPhone) {
         this.id = id;
         this.name = name;
         this.department = department;
         this.studentId = studentId;
         this.batch = batch;
+        this.studentPhone = studentPhone;
+        this.guardianPhone = guardianPhone;
     }
 
-    public StudentModel(String name, String department, String studentId, String batch) {
+    public StudentModel(String name, String department, String studentId, String batch, String studentPhone, String guardianPhone) {
         this.name = name;
         this.department = department;
         this.studentId = studentId;
         this.batch = batch;
+        this.studentPhone = studentPhone;
+        this.guardianPhone = guardianPhone;
     }
 
     public String getId() {
@@ -63,5 +69,21 @@ public class StudentModel {
 
     public void setBatch(String batch) {
         this.batch = batch;
+    }
+
+    public String getStudentPhone() {
+        return studentPhone;
+    }
+
+    public void setStudentPhone(String studentPhone) {
+        this.studentPhone = studentPhone;
+    }
+
+    public String getGuardianPhone() {
+        return guardianPhone;
+    }
+
+    public void setGuardianPhone(String guardianPhone) {
+        this.guardianPhone = guardianPhone;
     }
 }

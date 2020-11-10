@@ -7,4 +7,6 @@ public interface FragmentInterface {
     void student();
 
     void addStudentForm();
+
+    void routine();
 }

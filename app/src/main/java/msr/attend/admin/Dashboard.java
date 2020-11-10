@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 public class Dashboard extends Fragment {
-    private ImageButton teacherBtn, studentBtn;
+    private ImageButton teacherBtn, studentBtn, routineBtn;
     private FragmentInterface fragmentInterface;
 
     public Dashboard() {
@@ -30,18 +30,24 @@ public class Dashboard extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         teacherBtn = view.findViewById(R.id.teacherBtn);
         studentBtn = view.findViewById(R.id.studentBtn);
+        routineBtn = view.findViewById(R.id.routineBtn);
+
+        fragmentInterface = (FragmentInterface) getActivity();
 
         teacherBtn.setOnClickListener(v -> gotoTeacher());
         studentBtn.setOnClickListener(v -> gotoStudent());
+        routineBtn.setOnClickListener(v -> gotoRoutine());
+    }
+
+    private void gotoRoutine() {
+        fragmentInterface.routine();
     }
 
     private void gotoStudent() {
-        fragmentInterface = (FragmentInterface) getActivity();
         fragmentInterface.student();
     }
 
     void gotoTeacher(){
-        fragmentInterface = (FragmentInterface) getActivity();
         fragmentInterface.teacher();
     }
 }

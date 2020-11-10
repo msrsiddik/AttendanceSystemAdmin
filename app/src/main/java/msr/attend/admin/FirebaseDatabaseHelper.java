@@ -6,12 +6,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import msr.attend.admin.Model.CoordinatorModel;
 import msr.attend.admin.Model.StudentModel;
@@ -22,6 +20,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference teacherRef;
     private DatabaseReference studentRef;
     private DatabaseReference coordinatorRef;
+    private DatabaseReference studentProfileRef;
     private List<TeacherModel> teachers = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
@@ -29,6 +28,7 @@ public class FirebaseDatabaseHelper {
         teacherRef = database.getReference().child("Teachers");
         studentRef = database.getReference().child("Students");
         coordinatorRef = database.getReference().child("Coordinators");
+        studentProfileRef = database.getReference().child("StudentsProfile");
     }
 
     public void getCourseCoordinator(String id,FireMan.CoordinatorListener listener){
