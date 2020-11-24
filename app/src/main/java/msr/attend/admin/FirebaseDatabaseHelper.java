@@ -2,6 +2,7 @@ package msr.attend.admin;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import msr.attend.admin.Model.ClassModel;
 import msr.attend.admin.Model.CoordinatorModel;
 import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.Model.TeacherModel;
@@ -21,6 +23,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference studentRef;
     private DatabaseReference coordinatorRef;
     private DatabaseReference studentProfileRef;
+    private DatabaseReference classInfoRef;
     private List<TeacherModel> teachers = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
@@ -29,6 +32,42 @@ public class FirebaseDatabaseHelper {
         studentRef = database.getReference().child("Students");
         coordinatorRef = database.getReference().child("Coordinators");
         studentProfileRef = database.getReference().child("StudentsProfile");
+        classInfoRef = database.getReference().child("ClassInformation");
+    }
+
+    public void getClassInfo(String teacherId, FireMan.ClassInfoListener listener){
+        List<ClassModel> list = new ArrayList<>();
+        classInfoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    if (ds.exists()){
+                        ClassModel classModel = ds.getValue(ClassModel.class);
+                        if (classModel.getTeacherId().equals(teacherId)) {
+                            list.add(classModel);
+                        }
+                    }
+                }
+                listener.classInfoIsLoaded(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void insertClassInfo(ClassModel classModel, FireMan.ClassInfoListener listener){
+        String id = classInfoRef.push().getKey();
+        classModel.setClassId(id);
+        classInfoRef.child(id).setValue(classModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listener.classInfoIsInserted();
+            }
+        });
     }
 
     public void getCourseCoordinator(String id,FireMan.CoordinatorListener listener){

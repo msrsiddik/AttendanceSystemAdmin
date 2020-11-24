@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+import msr.attend.admin.Model.ClassModel;
 import msr.attend.admin.Model.CoordinatorModel;
 import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.Model.TeacherModel;
@@ -30,4 +31,10 @@ public class FireMan {
         void coordinatorIsLoad(CoordinatorModel model);
     }
 
+    public interface ClassInfoListener {
+        void classInfoIsInserted();
+        void classInfoIsLoaded(List<ClassModel> classModelList);
+        void classInfoIsEdited();
+        void classInfoIsDeleted();
+    }
 }
