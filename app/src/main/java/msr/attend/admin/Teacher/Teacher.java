@@ -164,8 +164,8 @@ public class Teacher extends Fragment {
 
         nameEdit.setText(teacherModel.getName());
         phoneEdit.setText(teacherModel.getPhone());
-        emailEdit.setText(teacherModel.getPhone());
-        passEdit.setText(teacherModel.getPhone());
+        emailEdit.setText(teacherModel.getEmail());
+        passEdit.setText(teacherModel.getPassword());
         departmentSelect.setSelection(adapter.getPosition(teacherModel.getDepartment()));
         if (teacherModel.getGender().equals("Male")) {
             radioGroup.check(R.id.maleRd);

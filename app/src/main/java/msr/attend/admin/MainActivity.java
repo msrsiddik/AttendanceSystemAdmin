@@ -11,8 +11,6 @@ import android.os.Bundle;
 import msr.attend.admin.Student.AddStudent;
 import msr.attend.admin.Student.Student;
 import msr.attend.admin.Teacher.Teacher;
-import msr.attend.admin.Teacher.TeacherProfile;
-import msr.attend.admin.routine.Routine;
 
 public class MainActivity extends AppCompatActivity implements FragmentInterface{
 
@@ -54,11 +52,6 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
     @Override
     public void addStudentForm() {
         fragmentManager.beginTransaction().replace(R.id.FragContainer, new AddStudent()).addToBackStack(null).commit();
-    }
-
-    @Override
-    public void routine() {
-        fragmentManager.beginTransaction().replace(R.id.FragContainer, new Routine()).addToBackStack(null).commit();
     }
 
     @Override
