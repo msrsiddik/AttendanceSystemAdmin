@@ -203,20 +203,16 @@ public class TeacherProfile extends Fragment {
         cDay.setAdapter(dayAdapter);
 
         cTime.setOnClickListener(v -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    cTime.setText(hourOfDay+" : "+minute);
-                }
-            }, 12, 00, true);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                    (view, hourOfDay, minute) -> cTime.setText(hourOfDay+" : "+minute),12, 00, true);
             timePickerDialog.setTitle("Select Time");
             timePickerDialog.show();
         });
 
         cSubmitBtn.setOnClickListener(v -> {
             if ( cDepart.getSelectedItemPosition() != 0
-                    && cBatch.getSelectedItemPosition() != 0
-                    && cSubCode.getSelectedItemPosition() != 0
+                    && !cBatch.getSelectedItem().toString().equals("Select Batch")
+//                    && cSubCode.getSelectedItemPosition() != 0
                     && cDay.getSelectedItemPosition() != 0 ) {
                 String depart = cDepart.getSelectedItem().toString();
                 String batch = cBatch.getSelectedItem().toString();
