@@ -61,6 +61,8 @@ public class Teacher extends Fragment {
         addTeacher = view.findViewById(R.id.addTeacher);
         fragmentInterface = (FragmentInterface) getActivity();
 
+        getActivity().setTitle("All Teacher");
+
         departmentList = getResources().getStringArray(R.array.department_name);
 
         setUpListView();

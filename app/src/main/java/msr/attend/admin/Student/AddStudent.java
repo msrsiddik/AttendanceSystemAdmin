@@ -53,6 +53,8 @@ public class AddStudent extends Fragment {
         stSubmitBtn = view.findViewById(R.id.studentSubmitBtn);
         back = view.findViewById(R.id.addStudentFormBack);
 
+        getActivity().setTitle("Add Student");
+
         fragmentInterface = (FragmentInterface) getActivity();
 
         back.setOnClickListener(v -> {

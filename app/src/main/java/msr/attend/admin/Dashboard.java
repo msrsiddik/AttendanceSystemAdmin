@@ -31,6 +31,8 @@ public class Dashboard extends Fragment {
         teacherBtn = view.findViewById(R.id.teacherBtn);
         studentBtn = view.findViewById(R.id.studentBtn);
 
+        getActivity().setTitle("Dashboard");
+
         fragmentInterface = (FragmentInterface) getActivity();
 
         teacherBtn.setOnClickListener(v -> gotoTeacher());

@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +33,13 @@ import msr.attend.admin.FragmentInterface;
 import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.R;
 
-public class Student extends Fragment {
+public class Student extends Fragment implements SearchView.OnQueryTextListener{
+    private SearchView searchView;
     private ListView studentViewList;
     private FloatingActionButton addStudentBtn;
     private FragmentInterface fragmentInterface;
     private List<StudentModel> studentModelList = null;
+    private StudentsAdapter studentsAdapter;
 
     public Student() {
         // Required empty public constructor
@@ -49,21 +54,26 @@ public class Student extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        searchView = view.findViewById(R.id.searchStudent);
         studentViewList = view.findViewById(R.id.studentsView);
         addStudentBtn = view.findViewById(R.id.addStudentBtn);
+
+        getActivity().setTitle("Student List");
 
         loadStudentFromDb();
 
         fragmentInterface = (FragmentInterface) getActivity();
         addStudentBtn.setOnClickListener(v -> fragmentInterface.addStudentForm());
         registerForContextMenu(studentViewList);
+
+        searchView.setOnQueryTextListener(this);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        loadStudentFromDb();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        loadStudentFromDb();
+//    }
 
     private void loadStudentFromDb(){
         new FirebaseDatabaseHelper().getStudents(new FireMan.StudentDataShort() {
@@ -71,7 +81,8 @@ public class Student extends Fragment {
             public void studentIsLoaded(List<StudentModel> students) {
                 if (getActivity()!=null) {
                     studentModelList = students;
-                    studentViewList.setAdapter(new StudentsAdapter(getContext(), students));
+                    studentsAdapter = new StudentsAdapter(getContext(), students);
+                    studentViewList.setAdapter(studentsAdapter);
                 }
             }
 
@@ -147,7 +158,26 @@ public class Student extends Fragment {
         return true;
     }
 
-    class StudentsAdapter extends ArrayAdapter<StudentModel>{
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        List<StudentModel> list = new ArrayList<>();
+        for (StudentModel student : studentModelList){
+            if (student.toString().contains(newText)){
+                list.add(student);
+            }
+        }
+
+        ((StudentsAdapter)studentViewList.getAdapter()).update(list);
+
+        return false;
+    }
+
+    class StudentsAdapter extends ArrayAdapter<StudentModel> {
         Context context;
         List<StudentModel> list = null;
         public StudentsAdapter(@NonNull Context context, @NonNull List<StudentModel> objects) {
@@ -156,7 +186,11 @@ public class Student extends Fragment {
             this.list = objects;
         }
 
-
+        public void update(List<StudentModel> list) {
+            this.list = new ArrayList<>();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
 
         @NonNull
         @Override
@@ -170,6 +204,7 @@ public class Student extends Fragment {
             stId.setText(list.get(position).getStudentId());
             return view;
         }
+
     }
 
 }

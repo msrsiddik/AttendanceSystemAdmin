@@ -41,6 +41,8 @@ public class Login extends Fragment {
         pass = view.findViewById(R.id.loginPass);
         loginBtn = view.findViewById(R.id.signInBtn);
 
+        getActivity().setTitle("Admin Login");
+        
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

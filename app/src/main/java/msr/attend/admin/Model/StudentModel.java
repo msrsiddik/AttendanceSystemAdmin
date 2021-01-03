@@ -86,4 +86,9 @@ public class StudentModel {
     public void setGuardianPhone(String guardianPhone) {
         this.guardianPhone = guardianPhone;
     }
+
+    @Override
+    public String toString() {
+        return name +" " + department + " " + " " + studentId + " " + " " + batch + " " + " " + studentPhone + " " + " " + guardianPhone ;
+    }
 }

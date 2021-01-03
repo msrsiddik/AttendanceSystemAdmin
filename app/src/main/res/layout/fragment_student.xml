@@ -6,10 +6,20 @@
     android:layout_margin="10dp"
     tools:context=".Student.Student">
 
+    <SearchView
+        android:id="@+id/searchStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Here">
+        <requestFocus/>
+    </SearchView>
+
     <ListView
         android:id="@+id/studentsView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchStudent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addStudentBtn"
