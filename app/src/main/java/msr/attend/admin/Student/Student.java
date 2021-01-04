@@ -66,7 +66,7 @@ public class Student extends Fragment implements SearchView.OnQueryTextListener{
         addStudentBtn.setOnClickListener(v -> fragmentInterface.addStudentForm());
         registerForContextMenu(studentViewList);
 
-        searchView.setOnQueryTextListener(this);
+//        searchView.setOnQueryTextListener(this);
     }
 
 //    @Override

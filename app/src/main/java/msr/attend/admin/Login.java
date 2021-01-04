@@ -42,7 +42,7 @@ public class Login extends Fragment {
         loginBtn = view.findViewById(R.id.signInBtn);
 
         getActivity().setTitle("Admin Login");
-        
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -28,7 +28,7 @@ public class FireMan {
     }
 
     public interface CoordinatorListener{
-        void coordinatorIsLoad(CoordinatorModel model);
+        void coordinatorIsLoaded(List<CoordinatorModel> models);
     }
 
     public interface ClassInfoListener {

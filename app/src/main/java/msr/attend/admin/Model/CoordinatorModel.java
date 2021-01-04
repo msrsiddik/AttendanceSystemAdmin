@@ -27,4 +27,9 @@ public class CoordinatorModel {
     public void setBatch(String batch) {
         this.batch = batch;
     }
+
+    @Override
+    public String toString() {
+        return "{ "+ batch +" }";
+    }
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,6 @@ public class TeacherProfile extends Fragment {
     private String teacherId;
 
     private int departPos;
-
-//    ArrayAdapter<CharSequence> subCodeAdapterCSE, subCodeAdapterEEE;
 
     public TeacherProfile() {
         // Required empty public constructor
@@ -91,12 +90,16 @@ public class TeacherProfile extends Fragment {
         title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         tCoCoordLayout.addView(title);
 
-        new FirebaseDatabaseHelper().getCourseCoordinator(teacherModel.getId(), model -> {
-            title.setText("Batch : " + model.getBatch());
+        new FirebaseDatabaseHelper().getCourseCoordinator(teacherModel.getId(), models -> {
+            if (models.size()>0) {
+                title.setText("Batch : " + models.toString());
+            } else {
+                title.setText("not coordinated");
+            }
         });
 
         coordinatorAddBtn.setOnClickListener(v -> {
-            title.setText("Batch : " + tBatchSpin.getSelectedItem());
+//            title.setText(title.getText().toString().concat(tBatchSpin.getSelectedItem()+""));
             new FirebaseDatabaseHelper().addCourseCoordinator(new CoordinatorModel(teacherModel.getId(), tBatchSpin.getSelectedItem().toString()));
         });
 
@@ -196,41 +199,40 @@ public class TeacherProfile extends Fragment {
         semesterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cSemester.setAdapter(semesterAdapter);
 
-        int[] subCodeBySemesterCSE = {R.array.first_bsc_cse, R.array.second_bsc_cse, R.array.third_bsc_cse, R.array.fourth_bsc_cse,
+        int[] subCodeBySemesterCSE = {R.array.subCodeFirstItem, R.array.first_bsc_cse, R.array.second_bsc_cse, R.array.third_bsc_cse, R.array.fourth_bsc_cse,
                 R.array.fifth_bsc_cse, R.array.sixth_bsc_cse, R.array.seventh_bsc_cse, R.array.eighth_bsc_cse, R.array.ninth_bsc_cse,
                 R.array.tenth_bsc_cse, R.array.eleventh_bsc_cse, R.array.twelfth_bsc_cse};
 
-        int[] subCodeBySemesterEEE = {R.array.first_bsc_eee, R.array.second_bsc_eee, R.array.third_bsc_eee, R.array.fourth_bsc_eee,
+        int[] subCodeBySemesterEEE = {R.array.subCodeFirstItem, R.array.first_bsc_eee, R.array.second_bsc_eee, R.array.third_bsc_eee, R.array.fourth_bsc_eee,
                 R.array.fifth_bsc_eee, R.array.sixth_bsc_eee, R.array.seventh_bsc_eee, R.array.eighth_bsc_eee, R.array.ninth_bsc_eee,
                 R.array.tenth_bsc_eee, R.array.eleventh_bsc_eee, R.array.twelfth_bsc_eee};
 
-        int[] subCodeBySemesterEETE = {R.array.first_bsc_eete, R.array.second_bsc_eete, R.array.third_bsc_eete, R.array.fourth_bsc_eete,
+        int[] subCodeBySemesterEETE = {R.array.subCodeFirstItem, R.array.first_bsc_eete, R.array.second_bsc_eete, R.array.third_bsc_eete, R.array.fourth_bsc_eete,
                 R.array.fifth_bsc_eete, R.array.sixth_bsc_eete, R.array.seventh_bsc_eete, R.array.eighth_bsc_eete, R.array.ninth_bsc_eete,
                 R.array.tenth_bsc_eete, R.array.eleventh_bsc_eete, R.array.twelfth_bsc_eete};
 
-        int[] subCodeBySemesterEnglish = {R.array.first_hons_english, R.array.second_hons_english, R.array.third_hons_english, R.array.fourth_hons_english,
+        int[] subCodeBySemesterEnglish = {R.array.subCodeFirstItem, R.array.first_hons_english, R.array.second_hons_english, R.array.third_hons_english, R.array.fourth_hons_english,
                 R.array.fifth_hons_english, R.array.sixth_hons_english, R.array.seventh_hons_english, R.array.eighth_hons_english, R.array.ninth_hons_english,
                 R.array.tenth_hons_english, R.array.eleventh_hons_english, R.array.twelfth_hons_english};
 
-        int[] subCodeBySemesterLaw = {R.array.first_hons_llb, R.array.second_hons_llb, R.array.third_hons_llb, R.array.fourth_hons_llb,
+        int[] subCodeBySemesterLaw = {R.array.subCodeFirstItem, R.array.first_hons_llb, R.array.second_hons_llb, R.array.third_hons_llb, R.array.fourth_hons_llb,
                 R.array.fifth_hons_llb, R.array.sixth_hons_llb, R.array.seventh_hons_llb, R.array.eighth_hons_llb, R.array.ninth_hons_llb,
                 R.array.tenth_hons_llb, R.array.eleventh_hons_llb, R.array.twelfth_hons_llb};
 
-        int[] subCodeBySemesterSociology = {R.array.first_bss_hons_sociology, R.array.second_bss_hons_sociology, R.array.third_bss_hons_sociology, R.array.fourth_bss_hons_sociology,
+        int[] subCodeBySemesterSociology = {R.array.subCodeFirstItem, R.array.first_bss_hons_sociology, R.array.second_bss_hons_sociology, R.array.third_bss_hons_sociology, R.array.fourth_bss_hons_sociology,
                 R.array.fifth_bss_hons_sociology, R.array.sixth_bss_hons_sociology, R.array.seventh_bss_hons_sociology, R.array.eighth_bss_hons_sociology, R.array.ninth_bss_hons_sociology,
                 R.array.tenth_bss_hons_sociology, R.array.eleventh_bss_hons_sociology, R.array.twelfth_bss_hons_sociology};
-
 
 
         cSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ArrayAdapter<CharSequence> subCodeAdapterCSE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterCSE[position + 1], android.R.layout.simple_spinner_item);
-                ArrayAdapter<CharSequence> subCodeAdapterEEE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEEE[position + 1], android.R.layout.simple_spinner_item);
-                ArrayAdapter<CharSequence> subCodeAdapterEETE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEETE[position + 1], android.R.layout.simple_spinner_item);
-                ArrayAdapter<CharSequence> subCodeAdapterEnglish = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEnglish[position + 1], android.R.layout.simple_spinner_item);
-                ArrayAdapter<CharSequence> subCodeAdapterLaw = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterLaw[position + 1], android.R.layout.simple_spinner_item);
-                ArrayAdapter<CharSequence> subCodeAdapterSociology = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterSociology[position + 1], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterCSE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterCSE[position], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterEEE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEEE[position], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterEETE = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEETE[position], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterEnglish = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterEnglish[position], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterLaw = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterLaw[position], android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> subCodeAdapterSociology = ArrayAdapter.createFromResource(getContext(), subCodeBySemesterSociology[position], android.R.layout.simple_spinner_item);
 
                 subCodeAdapterCSE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 subCodeAdapterEEE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -238,6 +240,8 @@ public class TeacherProfile extends Fragment {
                 subCodeAdapterEnglish.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 subCodeAdapterLaw.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 subCodeAdapterSociology.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                Log.e("position",position+"");
 
                 switch (departPos) {
                     case 1:
@@ -296,6 +300,7 @@ public class TeacherProfile extends Fragment {
                     @Override
                     public void classInfoIsInserted() {
                         Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
 
                     @Override

@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import msr.attend.admin.Model.ClassModel;
@@ -59,7 +60,7 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void insertClassInfo(ClassModel classModel, FireMan.ClassInfoListener listener){
+    public void insertClassInfo(ClassModel classModel, final FireMan.ClassInfoListener listener){
         String id = classInfoRef.push().getKey();
         classModel.setClassId(id);
         classInfoRef.child(id).setValue(classModel).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -70,14 +71,18 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void getCourseCoordinator(String id,FireMan.CoordinatorListener listener){
-        coordinatorRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getCourseCoordinator(String id, final FireMan.CoordinatorListener listener){
+        coordinatorRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<CoordinatorModel> coordinatorModels = new ArrayList<>();
                 if (snapshot.exists()) {
-                    CoordinatorModel model = snapshot.getValue(CoordinatorModel.class);
-                    listener.coordinatorIsLoad(model);
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        CoordinatorModel model = ds.getValue(CoordinatorModel.class);
+                        coordinatorModels.add(model);
+                    }
                 }
+                listener.coordinatorIsLoaded(coordinatorModels);
             }
 
             @Override
@@ -88,7 +93,7 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addCourseCoordinator(CoordinatorModel model){
-        coordinatorRef.child(model.getId()).setValue(model);
+        coordinatorRef.child(model.getId()).child('-'+model.getBatch()).setValue(model);
     }
 
     public void editStudent(StudentModel model, final FireMan.StudentDataShort dataShort){

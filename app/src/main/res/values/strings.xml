@@ -41,6 +41,7 @@
         <item>2nd</item>
         <item>3rd</item>
         <item>4th</item>
+        <item>5th</item>
         <item>6th</item>
         <item>7th</item>
         <item>8th</item>
@@ -59,6 +60,10 @@
         <item>Wednesday</item>
         <item>Thursday</item>
         <item>Friday</item>
+    </string-array>
+
+    <string-array name="subCodeFirstItem">
+        <item>Select Subject</item>
     </string-array>
 
     <!--    BSC in CSE     -->
