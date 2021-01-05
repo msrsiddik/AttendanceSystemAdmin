@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+import java.util.Set;
 
 import msr.attend.admin.Model.ClassModel;
 import msr.attend.admin.Model.CoordinatorModel;
@@ -36,5 +37,13 @@ public class FireMan {
         void classInfoIsLoaded(List<ClassModel> classModelList);
         void classInfoIsEdited();
         void classInfoIsDeleted();
+    }
+
+    public interface RunningBatchShot {
+        void batchListener(Set<String> batchs);
+    }
+
+    public interface AlreadyCoordinateBatch{
+        void batchListener(List<String> coordinateBatchs);
     }
 }

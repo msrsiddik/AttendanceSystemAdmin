@@ -25,8 +25,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import msr.attend.admin.FireMan;
 import msr.attend.admin.FirebaseDatabaseHelper;
@@ -44,6 +47,7 @@ public class TeacherProfile extends Fragment {
     private TeacherModel teacherModel;
     private ListView classListView;
     private String teacherId;
+    private FirebaseDatabaseHelper firebaseDatabaseHelper;
 
     private int departPos;
 
@@ -72,6 +76,8 @@ public class TeacherProfile extends Fragment {
 
         getActivity().setTitle("Teacher Profile");
 
+        firebaseDatabaseHelper = new FirebaseDatabaseHelper();
+
         Bundle bundle = getArguments();
         teacherModel = Utils.getGsonParser().fromJson(bundle.getString("teacher"), TeacherModel.class);
         tName.setText(teacherModel.getName());
@@ -81,16 +87,28 @@ public class TeacherProfile extends Fragment {
 
         teacherId = teacherModel.getId();
 
-        String[] batch = {"42", "43", "44", "45", "46", "47"};
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, batch);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tBatchSpin.setAdapter(adapter);
+        firebaseDatabaseHelper.getAllRunningBatch(batchs -> {
+            List<String> list = new ArrayList<>();
+            list.addAll(batchs);
+            firebaseDatabaseHelper.getAllCoordinateBatch(coordinateBatchs -> {
+                list.removeAll(coordinateBatchs);
+                Collections.sort(list);
+                if (list.size() == 0){
+                    list.add("Batch unavailable");
+                    coordinatorAddBtn.setVisibility(View.GONE);
+                }
+                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, list.toArray());
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                tBatchSpin.setAdapter(adapter);
+            });
+
+        });
 
         TextView title = new TextView(getContext());
         title.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         tCoCoordLayout.addView(title);
 
-        new FirebaseDatabaseHelper().getCourseCoordinator(teacherModel.getId(), models -> {
+        firebaseDatabaseHelper.getCourseCoordinator(teacherModel.getId(), models -> {
             if (models.size()>0) {
                 title.setText("Batch : " + models.toString());
             } else {
@@ -99,8 +117,7 @@ public class TeacherProfile extends Fragment {
         });
 
         coordinatorAddBtn.setOnClickListener(v -> {
-//            title.setText(title.getText().toString().concat(tBatchSpin.getSelectedItem()+""));
-            new FirebaseDatabaseHelper().addCourseCoordinator(new CoordinatorModel(teacherModel.getId(), tBatchSpin.getSelectedItem().toString()));
+            firebaseDatabaseHelper.addCourseCoordinator(new CoordinatorModel(teacherModel.getId(), tBatchSpin.getSelectedItem().toString()));
         });
 
         addClassBtn.setOnClickListener(v -> setUpAddClass());

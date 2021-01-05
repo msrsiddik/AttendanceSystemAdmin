@@ -11,7 +11,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import msr.attend.admin.Model.ClassModel;
 import msr.attend.admin.Model.CoordinatorModel;
@@ -108,7 +110,7 @@ public class FirebaseDatabaseHelper {
                 .addOnSuccessListener(aVoid -> dataShort.studentIsDeleted());
     }
 
-    public void getStudents(FireMan.StudentDataShort dataShort){
+    public void getStudents(final FireMan.StudentDataShort dataShort){
         List<StudentModel> list = new ArrayList<>();
         studentRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -162,6 +164,46 @@ public class FirebaseDatabaseHelper {
                     list.add(model);
                 }
                 dataShort.teacherIsLoaded(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getAllRunningBatch(final FireMan.RunningBatchShot batchShot){
+        studentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Set<String> list = new HashSet<>();
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    StudentModel model = ds.getValue(StudentModel.class);
+                    list.add(model.getBatch());
+                }
+                batchShot.batchListener(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getAllCoordinateBatch(final FireMan.AlreadyCoordinateBatch listener){
+        coordinatorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> list = new ArrayList<>();
+                for (DataSnapshot tId : snapshot.getChildren()){
+                    for (DataSnapshot ds : tId.getChildren()){
+                        CoordinatorModel model = ds.getValue(CoordinatorModel.class);
+                        list.add(model.getBatch());
+                    }
+                }
+                listener.batchListener(list);
             }
 
             @Override
