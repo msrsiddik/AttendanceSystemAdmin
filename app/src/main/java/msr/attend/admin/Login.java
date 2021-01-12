@@ -10,17 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 
 import static msr.attend.admin.FireMan.ADMIN_AUTH;
 
 public class Login extends Fragment {
-    private EditText email, pass;
+    private TextInputEditText email, pass;
     private Button loginBtn;
     private FragmentInterface fragmentInterface;
 
@@ -41,24 +41,24 @@ public class Login extends Fragment {
         pass = view.findViewById(R.id.loginPass);
         loginBtn = view.findViewById(R.id.signInBtn);
 
-        getActivity().setTitle("Admin Login");
+        getActivity().setTitle("Admin App");
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ADMIN_AUTH.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(getContext(), "Successful Login", Toast.LENGTH_SHORT).show();
-                                    fragmentInterface = (FragmentInterface) getActivity();
-                                    fragmentInterface.dashboard();
-                                } else {
-                                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                                }
+        loginBtn.setOnClickListener(v -> {
+            String email_ = email.getText().toString();
+            String password_ = pass.getText().toString();
+            if (!email_.isEmpty() && !password_.isEmpty()) {
+                ADMIN_AUTH.signInWithEmailAndPassword(email_, password_)
+                        .addOnCompleteListener(getActivity(), task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Successful Login", Toast.LENGTH_SHORT).show();
+                                fragmentInterface = (FragmentInterface) getActivity();
+                                fragmentInterface.dashboard();
+                            } else {
+                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
+            } else {
+                Toast.makeText(getContext(), "Please Type Email & Password", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="250dp"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/border_1">
 
     <Spinner
         android:id="@+id/classDepart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp" />
     <Spinner
         android:id="@+id/classBatch"
         android:layout_width="match_parent"

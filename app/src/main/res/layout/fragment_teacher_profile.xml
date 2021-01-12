@@ -4,96 +4,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:background="@color/one"
     tools:context=".Teacher.TeacherProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border_1">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name : "
-                android:textSize="20sp"/>
-            <TextView
-                android:id="@+id/tName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="20sp"/>
-        </LinearLayout>
+                android:weightSum="4"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name : "
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/tName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="20sp"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Email :"
-                android:textSize="20sp"/>
-            <TextView
-                android:id="@+id/tEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="20sp"/>
-        </LinearLayout>
+                android:weightSum="4"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Email :"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/tEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="20sp"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Phone :"
-                android:textSize="20sp"/>
-            <TextView
-                android:id="@+id/tPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="20sp"/>
-        </LinearLayout>
+                android:weightSum="4"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Phone :"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/tPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="20sp"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Depart :"
-                android:textSize="20sp"/>
-            <TextView
-                android:id="@+id/tDepart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="20sp"/>
+                android:weightSum="4"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Depart :"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/tDepart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="20sp"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tCoCoordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:padding="5dp"
+            android:background="@drawable/border_1"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -105,6 +114,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="4"
+            android:background="@drawable/border_1"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
@@ -122,6 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Add"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"/>
 
         </LinearLayout>
@@ -130,18 +143,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/border">
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:background="@drawable/border_1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Class Information"
+                android:textSize="18sp"
                 android:textAlignment="center"/>
 
             <ListView
                 android:id="@+id/classListView"
                 android:layout_width="match_parent"
-                android:layout_height="303dp" />
+                android:layout_height="303dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="10.0sp"/>
             <Button
                 android:id="@+id/addClassBtn"
                 android:layout_width="match_parent"

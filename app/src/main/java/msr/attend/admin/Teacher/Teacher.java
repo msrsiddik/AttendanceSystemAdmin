@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,10 +152,10 @@ public class Teacher extends Fragment {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.fragment_add_teacher);
-        EditText nameEdit = dialog.findViewById(R.id.teacherName);
-        EditText phoneEdit = dialog.findViewById(R.id.teacherPhoneNum);
-        EditText emailEdit = dialog.findViewById(R.id.teacherEmail);
-        EditText passEdit = dialog.findViewById(R.id.teacherPassword);
+        TextInputEditText nameEdit = dialog.findViewById(R.id.teacherName);
+        TextInputEditText phoneEdit = dialog.findViewById(R.id.teacherPhoneNum);
+        TextInputEditText emailEdit = dialog.findViewById(R.id.teacherEmail);
+        TextInputEditText passEdit = dialog.findViewById(R.id.teacherPassword);
         Spinner departmentSelect = dialog.findViewById(R.id.departmentSelect);
         RadioGroup radioGroup = dialog.findViewById(R.id.teacherGenderRdG);
         Button signUp = dialog.findViewById(R.id.teacherSubmit);
@@ -213,10 +214,10 @@ public class Teacher extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.fragment_add_teacher);
 
-        EditText nameEdit = dialog.findViewById(R.id.teacherName);
-        EditText phoneEdit = dialog.findViewById(R.id.teacherPhoneNum);
-        EditText emailEdit = dialog.findViewById(R.id.teacherEmail);
-        EditText passEdit = dialog.findViewById(R.id.teacherPassword);
+        TextInputEditText nameEdit = dialog.findViewById(R.id.teacherName);
+        TextInputEditText phoneEdit = dialog.findViewById(R.id.teacherPhoneNum);
+        TextInputEditText emailEdit = dialog.findViewById(R.id.teacherEmail);
+        TextInputEditText passEdit = dialog.findViewById(R.id.teacherPassword);
         Spinner departmentSelect = dialog.findViewById(R.id.departmentSelect);
         RadioGroup radioGroup = dialog.findViewById(R.id.teacherGenderRdG);
         Button signUp = dialog.findViewById(R.id.teacherSubmit);

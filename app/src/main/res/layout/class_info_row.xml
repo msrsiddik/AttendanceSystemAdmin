@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:weightSum="3"
     android:padding="10dp"
+    android:background="@drawable/item_bg"
     android:gravity="center">
 
     <TextView

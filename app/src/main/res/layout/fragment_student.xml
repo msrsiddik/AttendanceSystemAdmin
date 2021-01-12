@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@color/one"
     tools:context=".Student.Student">
 
     <SearchView
@@ -19,6 +19,9 @@
         android:id="@+id/studentsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         android:layout_below="@+id/searchStudent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

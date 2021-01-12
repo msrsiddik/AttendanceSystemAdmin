@@ -1,58 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="10dp"
     tools:context=".Student.AddStudent">
 
-    <Button
-        android:id="@+id/addStudentFormBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_marginBottom="100dp"/>
-
-    <EditText
-        android:id="@+id/studentName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Student Name"/>
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:background="@drawable/form_background_1">
+        <Button
+            android:id="@+id/addStudentFormBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_marginBottom="10dp"/>
 
-    <Spinner
-        android:id="@+id/studentDepart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/studentName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student Name"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/studentId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Student Id"/>
+        <Spinner
+            android:id="@+id/studentDepart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/studentBatch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Batch"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/studentId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student Id"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/studentPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Student Mobile Number"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/studentBatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Batch"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/guardianPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Guardian Mobile Number"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/studentPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student Mobile Number"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/studentSubmitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/guardianPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Guardian Mobile Number"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/studentSubmitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"/>
+    </LinearLayout>
+
+</ScrollView>

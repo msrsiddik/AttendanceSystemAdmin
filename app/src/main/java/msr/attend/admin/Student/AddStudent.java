@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.List;
 
 import msr.attend.admin.FireMan;
@@ -25,7 +27,7 @@ import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.R;
 
 public class AddStudent extends Fragment {
-    private EditText studentName, studentId, studentBatch, studentPhone, guardianPhone;
+    private TextInputEditText studentName, studentId, studentBatch, studentPhone, guardianPhone;
     private Spinner departSelect;
     private Button stSubmitBtn, back;
     private FragmentInterface fragmentInterface;

@@ -10,7 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -48,6 +51,8 @@ public class TeacherProfile extends Fragment {
     private ListView classListView;
     private String teacherId;
     private FirebaseDatabaseHelper firebaseDatabaseHelper;
+
+    private List<ClassModel> listClass;
 
     private int departPos;
 
@@ -123,6 +128,46 @@ public class TeacherProfile extends Fragment {
         addClassBtn.setOnClickListener(v -> setUpAddClass());
 
         setUpClassInfo();
+
+        registerForContextMenu(classListView);
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.classListView){
+            menu.add("Delete");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        CharSequence title = item.getTitle();
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (title.equals("Delete")){
+            firebaseDatabaseHelper.deleteClassInfo(listClass.get(menuInfo.position).getClassId(), new FireMan.ClassInfoListener() {
+                @Override
+                public void classInfoIsInserted() {
+
+                }
+
+                @Override
+                public void classInfoIsLoaded(List<ClassModel> classModelList) {
+
+                }
+
+                @Override
+                public void classInfoIsEdited() {
+
+                }
+
+                @Override
+                public void classInfoIsDeleted() {
+                    Toast.makeText(getContext(), "Delete Success", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        return true;
     }
 
     private void setUpClassInfo() {
@@ -135,6 +180,7 @@ public class TeacherProfile extends Fragment {
             @Override
             public void classInfoIsLoaded(List<ClassModel> classModelList) {
                 if (getActivity() != null) {
+                    listClass = classModelList;
                     ClassAdapter adapter = new ClassAdapter(getContext(), classModelList);
                     classListView.setAdapter(adapter);
                 }

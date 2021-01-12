@@ -73,6 +73,15 @@ public class FirebaseDatabaseHelper {
         });
     }
 
+    public void deleteClassInfo(String classId, final FireMan.ClassInfoListener listener){
+        classInfoRef.child(classId).setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listener.classInfoIsDeleted();
+            }
+        });
+    }
+
     public void getCourseCoordinator(String id, final FireMan.CoordinatorListener listener){
         coordinatorRef.child(id).addValueEventListener(new ValueEventListener() {
             @Override
