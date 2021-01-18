@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 public class Dashboard extends Fragment {
-    private ImageButton teacherBtn, studentBtn;
+    private ImageButton teacherBtn, studentBtn, superPermission;
     private FragmentInterface fragmentInterface;
 
     public Dashboard() {
@@ -30,6 +30,7 @@ public class Dashboard extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         teacherBtn = view.findViewById(R.id.teacherBtn);
         studentBtn = view.findViewById(R.id.studentBtn);
+        superPermission = view.findViewById(R.id.superPermission);
 
         getActivity().setTitle("Dashboard");
 
@@ -37,6 +38,11 @@ public class Dashboard extends Fragment {
 
         teacherBtn.setOnClickListener(v -> gotoTeacher());
         studentBtn.setOnClickListener(v -> gotoStudent());
+        superPermission.setOnClickListener(v -> gotoSuperUserPermission());
+    }
+
+    private void gotoSuperUserPermission() {
+        fragmentInterface.superUserSet();
     }
 
     private void gotoStudent() {

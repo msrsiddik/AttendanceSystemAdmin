@@ -88,6 +88,8 @@ public class AddStudent extends Fragment {
                         Toast.makeText(getContext(), "Student Inserted", Toast.LENGTH_SHORT).show();
                         studentName.getText().clear();
                         studentId.getText().clear();
+                        studentPhone.getText().clear();
+                        guardianPhone.getText().clear();
                     }
 
                     @Override

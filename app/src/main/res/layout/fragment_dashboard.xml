@@ -61,5 +61,44 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:layout_margin="10dp"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/four"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/superPermission"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/super_user_permission"
+                android:background="@color/four"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S.U.P."
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

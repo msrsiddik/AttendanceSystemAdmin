@@ -1,5 +1,8 @@
 package msr.attend.admin;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +30,7 @@ public class FirebaseDatabaseHelper {
     private DatabaseReference coordinatorRef;
     private DatabaseReference studentProfileRef;
     private DatabaseReference classInfoRef;
+    private DatabaseReference superUserPermission;
     private List<TeacherModel> teachers = new ArrayList<>();
 
     public FirebaseDatabaseHelper() {
@@ -36,6 +40,61 @@ public class FirebaseDatabaseHelper {
         coordinatorRef = database.getReference().child("Coordinators");
         studentProfileRef = database.getReference().child("StudentsProfile");
         classInfoRef = database.getReference().child("ClassInformation");
+        superUserPermission = database.getReference().child("SuperPermission");
+    }
+
+    public void deleteSuperSelectUser(String id, Context context){
+        superUserPermission.child("SuperUser").child(id).setValue(null)
+                .addOnSuccessListener(aVoid -> Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show());
+    }
+
+    public interface SuperUserListener{
+        void superTeacher(List<String> teacherIdList);
+    }
+
+    public void getSuperSelectedTeacher(final SuperUserListener superUserListener){
+        superUserPermission.child("SuperUser").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> list = new ArrayList<>();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    list.add(child.getKey());
+                }
+                superUserListener.superTeacher(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void setSuperSelectTeacher(String teacherId, String name){
+        superUserPermission.child("SuperUser").child(teacherId).setValue(name);
+    }
+
+    public interface RoutineMode{
+        void routineModeListener(String mode);
+    }
+
+    public void routineGetMode(final RoutineMode routineMode){
+        superUserPermission.child("Routine").child("EveryoneSetup").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String mode = snapshot.getValue(String.class);
+                routineMode.routineModeListener(mode);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void routineSetMode(String mode){
+        superUserPermission.child("Routine").child("EveryoneSetup").setValue(mode);
     }
 
     public void getClassInfo(String teacherId, FireMan.ClassInfoListener listener){

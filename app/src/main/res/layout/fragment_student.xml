@@ -6,14 +6,24 @@
     android:background="@color/one"
     tools:context=".Student.Student">
 
-    <SearchView
+    <LinearLayout
         android:id="@+id/searchStudent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Here">
-        <requestFocus/>
-    </SearchView>
+        android:orientation="horizontal"
+        android:background="@color/four"
+        android:weightSum="2">
+        <Spinner
+            android:id="@+id/selectDepart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Spinner
+            android:id="@+id/selectBatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/studentsView"

@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements FragmentInterface
     }
 
     @Override
+    public void superUserSet() {
+        fragmentManager.beginTransaction().replace(R.id.FragContainer, new SuperUser()).addToBackStack(null).commit();
+    }
+
+    @Override
     public void onBackPressed() {
         if (fragmentManager.getBackStackEntryCount()>0){
             int fragments = fragmentManager.getBackStackEntryCount();

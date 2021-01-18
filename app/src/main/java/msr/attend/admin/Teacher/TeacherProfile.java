@@ -102,9 +102,11 @@ public class TeacherProfile extends Fragment {
                     list.add("Batch unavailable");
                     coordinatorAddBtn.setVisibility(View.GONE);
                 }
-                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, list.toArray());
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                tBatchSpin.setAdapter(adapter);
+                if (getActivity() != null) {
+                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, list.toArray());
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    tBatchSpin.setAdapter(adapter);
+                }
             });
 
         });
@@ -254,9 +256,14 @@ public class TeacherProfile extends Fragment {
             }
         });
 
-        ArrayAdapter<CharSequence> batchAdapter = ArrayAdapter.createFromResource(getContext(), R.array.batch, android.R.layout.simple_spinner_item);
-        batchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cBatch.setAdapter(batchAdapter);
+//        ArrayAdapter<CharSequence> batchAdapter = ArrayAdapter.createFromResource(getContext(), R.array.batch, android.R.layout.simple_spinner_item);
+//        batchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        firebaseDatabaseHelper.getAllRunningBatch(batchs -> {
+            List<String> allBatch = new ArrayList<>(batchs);
+            allBatch.add(0,"Select Batch");
+            ArrayAdapter<String> batchAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, allBatch);
+            cBatch.setAdapter(batchAdapter);
+        });
 
         ArrayAdapter<CharSequence> semesterAdapter = ArrayAdapter.createFromResource(getContext(), R.array.semester, android.R.layout.simple_spinner_item);
         semesterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
