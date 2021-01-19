@@ -27,7 +27,7 @@ import msr.attend.admin.Model.StudentModel;
 import msr.attend.admin.R;
 
 public class AddStudent extends Fragment {
-    private TextInputEditText studentName, studentId, studentBatch, studentPhone, guardianPhone;
+    private TextInputEditText studentName, studentRoll, studentId, studentBatch, studentPhone, guardianPhone;
     private Spinner departSelect;
     private Button stSubmitBtn, back;
     private FragmentInterface fragmentInterface;
@@ -48,6 +48,7 @@ public class AddStudent extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         studentName = view.findViewById(R.id.studentName);
         departSelect = view.findViewById(R.id.studentDepart);
+        studentRoll = view.findViewById(R.id.studentRoll);
         studentId = view.findViewById(R.id.studentId);
         studentBatch = view.findViewById(R.id.studentBatch);
         studentPhone = view.findViewById(R.id.studentPhone);
@@ -72,11 +73,12 @@ public class AddStudent extends Fragment {
             String name = studentName.getText().toString();
             String depart = departSelect.getSelectedItem().toString();
             String stBatch = studentBatch.getText().toString();
+            String stRoll = studentRoll.getText().toString();
             String stId = studentId.getText().toString();
             String stPhone = studentPhone.getText().toString();
             String gdPhone = guardianPhone.getText().toString();
-            if (!name.equals("") && !depart.equals("") && !stId.equals("") && !studentBatch.equals("")) {
-                StudentModel studentModel = new StudentModel(name, depart, stId, stBatch, stPhone, gdPhone);
+            if (!name.equals("") && !depart.equals("Select Department") && !stId.equals("") && !studentBatch.equals("")) {
+                StudentModel studentModel = new StudentModel(name, depart, stRoll, stId, stBatch, stPhone, gdPhone);
                 new FirebaseDatabaseHelper().insertStudent(studentModel, new FireMan.StudentDataShort() {
                     @Override
                     public void studentIsLoaded(List<StudentModel> students) {
@@ -116,14 +118,17 @@ public class AddStudent extends Fragment {
     private void setUpEdittableStudent(Bundle bundle){
         String id = bundle.getString("id");
         studentName.setText(bundle.getString("name"));
+        studentRoll.setText(bundle.getString("studentRoll"));
         studentId.setText(bundle.getString("studentId"));
+        studentPhone.setText(bundle.getString("sPhone"));
+        guardianPhone.setText(bundle.getString("gPhone"));
         stSubmitBtn.setText("Update");
         departSelect.setSelection(spinnerAdapter.getPosition(bundle.getString("depart")));
         studentBatch.setText(bundle.getString("batch"));
 
         stSubmitBtn.setOnClickListener(v -> {
             new FirebaseDatabaseHelper().editStudent(new StudentModel(id, studentName.getText().toString(),
-                    departSelect.getSelectedItem().toString(), studentId.getText().toString(), studentBatch.getText().toString(),
+                    departSelect.getSelectedItem().toString(), studentRoll.getText().toString(), studentId.getText().toString(), studentBatch.getText().toString(),
                     studentPhone.getText().toString(), guardianPhone.getText().toString()),
                     new FireMan.StudentDataShort() {
                 @Override

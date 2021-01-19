@@ -4,6 +4,7 @@ public class StudentModel {
     private String id;
     private String name;
     private String department;
+    private String roll;
     private String studentId;
     private String batch;
     private String studentPhone;
@@ -12,19 +13,21 @@ public class StudentModel {
     public StudentModel() {
     }
 
-    public StudentModel(String id, String name, String department, String studentId, String batch, String studentPhone, String guardianPhone) {
+    public StudentModel(String id, String name, String department, String roll, String studentId, String batch, String studentPhone, String guardianPhone) {
         this.id = id;
         this.name = name;
         this.department = department;
+        this.roll = roll;
         this.studentId = studentId;
         this.batch = batch;
         this.studentPhone = studentPhone;
         this.guardianPhone = guardianPhone;
     }
 
-    public StudentModel(String name, String department, String studentId, String batch, String studentPhone, String guardianPhone) {
+    public StudentModel(String name, String department, String roll, String studentId, String batch, String studentPhone, String guardianPhone) {
         this.name = name;
         this.department = department;
+        this.roll = roll;
         this.studentId = studentId;
         this.batch = batch;
         this.studentPhone = studentPhone;
@@ -53,6 +56,14 @@ public class StudentModel {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getRoll() {
+        return roll;
+    }
+
+    public void setRoll(String roll) {
+        this.roll = roll;
     }
 
     public String getStudentId() {
@@ -85,10 +96,5 @@ public class StudentModel {
 
     public void setGuardianPhone(String guardianPhone) {
         this.guardianPhone = guardianPhone;
-    }
-
-    @Override
-    public String toString() {
-        return name +" " + department + " " + " " + studentId + " " + " " + batch + " " + " " + studentPhone + " " + " " + guardianPhone ;
     }
 }
