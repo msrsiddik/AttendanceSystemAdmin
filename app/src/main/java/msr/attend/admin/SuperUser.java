@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -27,6 +28,7 @@ import msr.attend.admin.Model.TeacherModel;
 public class SuperUser extends Fragment {
     private ToggleButton routineToggle;
     private Spinner teacherNameSpinner;
+    private TextView listEmptyMsg;
     private ListView permittedList;
 
     private FirebaseDatabaseHelper firebaseDatabaseHelper;
@@ -48,6 +50,7 @@ public class SuperUser extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         routineToggle = view.findViewById(R.id.routineToggle);
         teacherNameSpinner = view.findViewById(R.id.teacherNameSpinner);
+        listEmptyMsg = view.findViewById(R.id.listEmptyMsg);
         permittedList = view.findViewById(R.id.permittedList);
 
         firebaseDatabaseHelper = new FirebaseDatabaseHelper();
@@ -75,8 +78,8 @@ public class SuperUser extends Fragment {
                 if (position > 0) {
                     TeacherModel teacher = teacherModels.get(position - 1);
                     firebaseDatabaseHelper.setSuperSelectTeacher(teacher.getId(), teacher.getName());
+                    listEmptyMsg.setVisibility(View.GONE);
                 }
-                setupSpinner();
             }
 
             @Override
@@ -93,6 +96,9 @@ public class SuperUser extends Fragment {
                         listViewItem.add(teacher.getName());
                     }
                 }
+            }
+            if (teacherIdList.size() == 0){
+                listEmptyMsg.setVisibility(View.VISIBLE);
             }
             if (getActivity() != null) {
                 ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listViewItem);
