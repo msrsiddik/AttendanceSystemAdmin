@@ -53,6 +53,8 @@ public class SuperUser extends Fragment {
         listEmptyMsg = view.findViewById(R.id.listEmptyMsg);
         permittedList = view.findViewById(R.id.permittedList);
 
+        getActivity().setTitle("Super User Permission");
+
         firebaseDatabaseHelper = new FirebaseDatabaseHelper();
 
         firebaseDatabaseHelper.routineGetMode(mode -> {
